@@ -233,10 +233,35 @@ export const veille = {
   pourquoi:
     "J'ai choisi ce sujet parce qu'il rejoint directement les projets que j'ai menés en entreprise : le Logiciel Métier OCI EXPRESS manipule des actes d'état civil et des documents d'identité, et le Coffre-fort numérique repose entièrement sur du chiffrement côté client. Comprendre comment protéger les données d'un utilisateur, et ce que la réglementation impose, est devenu une compétence que je mobilise sur chacun de mes projets.",
   methode: [
-    "Consultation hebdomadaire des sources listées ci-dessous.",
-    "Abonnement aux flux RSS des sites spécialisés afin de centraliser la lecture.",
-    "Prise de notes systématique : date, source, résumé, et application concrète possible dans mes projets.",
+    "Collecte automatisée avec l'application Veille IA présentée plus bas : elle agrège les articles publiés sur mes thèmes de veille depuis le web et des flux RSS spécialisés.",
+    "Tri manuel des résultats : je ne conserve que les articles qui concernent réellement mon sujet et dont la source me paraît fiable.",
+    "Rédaction d'une fiche personnelle pour chaque article retenu, avec mes propres mots : le résumé, puis ce que j'en retire concrètement pour mes projets.",
+    "Consultation directe des sources de référence ci-dessous pour tout ce qui touche à la réglementation et aux alertes de sécurité, que je préfère lire à la source.",
   ],
+
+  // Outil utilisé pour automatiser la collecte. Ce n'est pas mon projet :
+  // il est développé par Ikar, l'auteur est crédité sur la page.
+  outil: {
+    nom: "Veille IA",
+    url: "https://veille-tech.onrender.com",
+    depot: "https://github.com/Ikar-code/veille_tech",
+    auteur: "Ikar",
+    auteurUrl: "https://github.com/Ikar-code",
+    description:
+      "Plateforme de veille technologique automatisée : elle collecte des articles depuis le web et des flux RSS, filtre les contenus pertinents, en génère des synthèses à l'aide de modèles de langage, puis publie le résultat sous forme de flux RSS et de page HTML.",
+    fonctions: [
+      "Collecte multi-sources : recherche web et flux RSS spécialisés.",
+      "Filtrage des articles selon la pertinence du sujet, la qualité de la source et la fraîcheur de l'information.",
+      "Génération de synthèses par une chaîne d'agents : recherche, vérification, rédaction puis contrôle qualité.",
+      "Historique des sessions, qui permet de suivre l'évolution d'un sujet dans le temps.",
+      "Publication automatique du résultat en flux RSS et en page HTML.",
+    ],
+    techno: ["Python", "Streamlit", "Groq API", "Supabase", "GitHub Actions"],
+    // Le service est hébergé sur une offre gratuite qui se met en veille :
+    // le premier chargement mesuré a pris 34 secondes, les suivants 0,4 s.
+    delaiReveil:
+      "L'application est hébergée sur une offre gratuite qui met le service en veille après quelques minutes d'inactivité. Le premier chargement peut donc demander une trentaine de secondes.",
+  },
   sources: [
     {
       nom: "ANSSI",

@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { veille } from "@/lib/data";
+import VeilleEmbed from "@/components/VeilleEmbed";
+
+const outil = veille.outil;
 
 export const metadata: Metadata = {
   title: "Veille technologique",
@@ -43,6 +46,63 @@ export default function Veille() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* Outil de veille automatisée ---------------------------------------- */}
+      <section className="wrap py-12">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="eyebrow">Automatisation</p>
+            <h2 className="mt-3 text-2xl">L&apos;outil qui alimente ma collecte</h2>
+          </div>
+        </div>
+
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_1.1fr]">
+          <div>
+            <h3 className="text-xl">{outil.nom}</h3>
+
+            {/* Crédit de l'auteur : cet outil n'est pas de moi. */}
+            <p className="mt-2 text-sm text-slate-500">
+              Outil développé par{" "}
+              <a
+                href={outil.auteurUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium text-accent-400 hover:underline"
+              >
+                {outil.auteur}
+              </a>
+              , que j&apos;utilise pour automatiser la collecte. Je n&apos;en suis pas l&apos;auteur.
+            </p>
+
+            <p className="mt-5 leading-relaxed text-slate-400">{outil.description}</p>
+
+            <ul className="mt-6 space-y-3">
+              {outil.fonctions.map((f) => (
+                <li key={f} className="flex gap-3 text-sm leading-relaxed text-slate-400">
+                  <span aria-hidden className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {outil.techno.map((t) => (
+                <span key={t} className="tag">
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <p className="mt-6 rounded-xl border-l-2 border-accent-500/50 bg-white/[0.03] p-4 text-sm leading-relaxed text-slate-400">
+              L&apos;outil me sert à <strong className="text-slate-200">collecter et trier</strong>{" "}
+              l&apos;information. Les fiches publiées plus bas restent rédigées par mes soins :
+              c&apos;est mon analyse, pas celle de la machine.
+            </p>
+          </div>
+
+          <VeilleEmbed />
         </div>
       </section>
 
