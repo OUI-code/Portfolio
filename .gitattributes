@@ -1,0 +1,12 @@
+# Normalise les fins de ligne des fichiers texte, et protège les binaires
+# (sans cette règle, Git corrompt les PDF sous Windows en y injectant des CRLF).
+* text=auto eol=lf
+
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
