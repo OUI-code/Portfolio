@@ -1,42 +1,49 @@
 import Link from "next/link";
 import { chiffres, competences, profil, projetsPro } from "@/lib/data";
 import ProjetCard from "@/components/ProjetCard";
+import HeroCanvas from "@/components/HeroCanvas";
 
 export default function Accueil() {
   return (
     <>
       {/* Hero -------------------------------------------------------------- */}
-      <section className="wrap pb-16 pt-20 sm:pt-28">
-        <p className="eyebrow">Portfolio · BTS SIO option SLAM</p>
+      {/* Le canvas décoratif est en fond absolu ; le contenu passe au-dessus
+          grâce au z-10, et reste lisible même si le canvas ne se dessine pas. */}
+      <section className="relative overflow-hidden">
+        <HeroCanvas />
 
-        <h1 className="mt-5 max-w-4xl text-4xl leading-[1.1] sm:text-6xl">
-          {profil.prenom} {profil.nom}
-          <span className="mt-3 block text-2xl font-medium text-slate-400 sm:text-3xl">
-            {profil.titre}
-          </span>
-        </h1>
+        <div className="wrap relative z-10 pb-16 pt-20 sm:pt-28">
+          <p className="eyebrow">Portfolio · BTS SIO option SLAM</p>
 
-        <p className="mt-7 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
-          {profil.accroche}
-        </p>
+          <h1 className="mt-5 max-w-4xl text-4xl leading-[1.1] sm:text-6xl">
+            {profil.prenom} {profil.nom}
+            <span className="mt-3 block text-2xl font-medium text-slate-400 sm:text-3xl">
+              {profil.titre}
+            </span>
+          </h1>
 
-        <div className="mt-9 flex flex-wrap gap-3">
-          <Link href="/projets/" className="btn-primary">
-            Voir mes projets
-          </Link>
-          <Link href="/experience/" className="btn-ghost">
-            Mon parcours et mon CV
-          </Link>
+          <p className="mt-7 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
+            {profil.accroche}
+          </p>
+
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Link href="/projets/" className="btn-primary">
+              Voir mes projets
+            </Link>
+            <Link href="/experience/" className="btn-ghost">
+              Mon parcours et mon CV
+            </Link>
+          </div>
+
+          <dl className="mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-3">
+            {chiffres.map((c) => (
+              <div key={c.label} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+                <dt className="text-3xl font-bold text-white">{c.valeur}</dt>
+                <dd className="mt-1 text-sm text-slate-500">{c.label}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
-
-        <dl className="mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-3">
-          {chiffres.map((c) => (
-            <div key={c.label} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-              <dt className="text-3xl font-bold text-white">{c.valeur}</dt>
-              <dd className="mt-1 text-sm text-slate-500">{c.label}</dd>
-            </div>
-          ))}
-        </dl>
       </section>
 
       {/* Présentation ------------------------------------------------------ */}
