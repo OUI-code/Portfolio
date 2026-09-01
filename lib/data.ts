@@ -12,9 +12,9 @@ export const profil = {
   accroche:
     "Je conçois et développe des applications web métiers, du recueil du besoin client jusqu'à la mise en production. Actuellement en formation BTS SIO, j'ai mené des projets en environnement professionnel chez OCI EXPRESS en tant que chef de projet et développeur.",
   // TODO — remplace par l'adresse que tu veux rendre publique sur ton portfolio
-  email: "ton.adresse@exemple.fr",
+  email: "cornuel.romain.bts@outlook.fr",
   // TODO — renseigne ton profil GitHub une fois le dépôt créé
-  github: "https://github.com/TON-PSEUDO",
+  github: "https://github.com/OUI-code",
   linkedin: "",
   localisation: "La Réunion (974)",
 };
@@ -54,7 +54,7 @@ export const competences = [
 
 export const experiences = [
   {
-    poste: "Chef de projet & développeur — Stage BTS SIO",
+    poste: "Chef de projet & développeur — Stage BTS SIO 1er année",
     entreprise: "OCI EXPRESS",
     lieu: "La Réunion",
     periode: "Stage de 6 semaines",
