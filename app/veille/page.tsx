@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { veille } from "@/lib/data";
 import VeilleEmbed from "@/components/VeilleEmbed";
+import { articlesAAnalyser } from "@/lib/rss";
 
 const outil = veille.outil;
 
@@ -11,6 +12,8 @@ export const metadata: Metadata = {
 
 export default function Veille() {
   const fiches = veille.fiches.filter((f) => f.titre.trim() !== "");
+  // Articles remontés par l'outil et pour lesquels je n'ai pas encore écrit de fiche.
+  const { articles, total } = articlesAAnalyser(12);
 
   return (
     <>
@@ -186,6 +189,64 @@ export default function Veille() {
           </div>
         )}
       </section>
+
+      {/* File d'attente : articles collectés, pas encore analysés ------------- */}
+      {articles.length > 0 && (
+        <section className="wrap py-12">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="eyebrow">File d&apos;attente</p>
+              <h2 className="mt-3 text-2xl">À analyser</h2>
+            </div>
+            <p className="text-sm text-slate-500">
+              {articles.length} affichés sur {total}
+            </p>
+          </div>
+
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-500">
+            Ces articles ont été remontés par {outil.nom} et je n&apos;ai pas encore rédigé de
+            fiche à leur sujet. Chacun disparaît de cette liste dès que sa fiche est publiée
+            plus haut. La date indiquée est celle de la collecte, pas celle de publication de
+            l&apos;article.
+          </p>
+
+          <ul className="mt-8 divide-y divide-white/5 border-y border-white/5">
+            {articles.map((a) => (
+              <li key={a.lien}>
+                <a
+                  href={a.lien}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex flex-col gap-2 py-5 transition sm:flex-row sm:items-baseline sm:gap-6"
+                >
+                  <span
+                    title={`Collecté le ${a.dateAffichee}`}
+                    className="shrink-0 text-xs tabular-nums text-slate-600 sm:w-32"
+                  >
+                    {a.dateAffichee}
+                  </span>
+
+                  <span className="flex-1">
+                    <span className="block font-medium leading-snug text-slate-200 group-hover:text-accent-400">
+                      {a.titre}
+                    </span>
+                    {a.description && (
+                      <span className="mt-1 line-clamp-2 block text-sm leading-relaxed text-slate-500">
+                        {a.description}
+                      </span>
+                    )}
+                  </span>
+
+                  <span className="flex shrink-0 items-center gap-2 text-xs text-slate-600">
+                    {a.source}
+                    {a.sujet && <span className="tag">{a.sujet}</span>}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </>
   );
 }

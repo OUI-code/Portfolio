@@ -57,6 +57,25 @@ Tant qu'aucune fiche n'a de titre, la page affiche un encart « en cours de réd
    document: { nom: "Nom affiché", fichier: "mon-fichier.pdf" }
    ```
 
+## Veille technologique automatisée
+
+La page Veille intègre l'application **Veille IA**
+([Ikar-code/veille_tech](https://github.com/Ikar-code/veille_tech), développée par Ikar)
+de deux façons complémentaires :
+
+1. **En iframe**, avec un écran de chargement explicite — le service est hébergé sur une
+   offre gratuite qui se met en veille, le premier chargement prend une trentaine de secondes.
+2. **Par flux RSS**, via le dossier [`rss/`](rss/) : l'application y pousse ses collectes,
+   qui alimentent la section « À analyser » de la page. Voir [`rss/README.md`](rss/README.md)
+   pour la configuration.
+
+Un article collecté disparaît de la section « À analyser » dès qu'une fiche portant son lien
+est ajoutée dans `veille.fiches`. Il n'y a donc rien à pointer manuellement : rédiger la fiche
+suffit.
+
+> L'outil sert à **collecter et trier**. Les fiches de veille doivent rester rédigées
+> personnellement — c'est la compétence évaluée à l'examen.
+
 ## Structure du projet
 
 ```
@@ -73,7 +92,9 @@ portfolio/
 │   ├── Footer.tsx
 │   └── ProjetCard.tsx    # Carte d'un projet
 ├── lib/
-│   └── data.ts           # ← TOUT LE CONTENU DU SITE
+│   ├── data.ts           # ← TOUT LE CONTENU DU SITE
+│   └── rss.ts            # Lecture des flux publiés par l'outil de veille
+├── rss/                  # Flux RSS poussés par l'application Veille IA
 └── public/
     └── documents/        # CV, lettre de motivation, guides PDF
 ```
