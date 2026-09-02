@@ -23,6 +23,8 @@ export type ArticleCollecte = {
   dateAffichee: string;
   source: string;
   sujet: string;
+  /** Vrai si une fiche de veille porte déjà ce lien. */
+  traite: boolean;
 };
 
 const DOSSIER_RSS = path.join(process.cwd(), "rss");
@@ -90,14 +92,15 @@ function formaterDate(rfc822: string): { iso: string; affichee: string; ts: numb
 }
 
 /**
- * Lit tous les flux du dossier rss/ et renvoie les articles non encore traités.
+ * Lit tous les flux du dossier rss/ et renvoie l'intégralité des articles
+ * collectés, chacun marqué comme traité ou non.
  *
- * @param limite nombre maximum d'articles renvoyés
- * @returns les articles à analyser, plus le total avant troncature
+ * Un article est traité dès qu'une fiche de veille porte son lien.
  */
-export function articlesAAnalyser(limite = 12): {
+export function lireCollecte(): {
   articles: ArticleCollecte[];
   total: number;
+  aAnalyser: number;
   fluxLus: number;
 } {
   let fichiers: string[] = [];
@@ -107,7 +110,7 @@ export function articlesAAnalyser(limite = 12): {
       .filter((f) => f.toLowerCase().endsWith(".xml"));
   } catch {
     // Le dossier rss/ n'existe pas encore : l'application n'a rien publié.
-    return { articles: [], total: 0, fluxLus: 0 };
+    return { articles: [], total: 0, aAnalyser: 0, fluxLus: 0 };
   }
 
   // Liens déjà couverts par une fiche rédigée.
@@ -139,8 +142,6 @@ export function articlesAAnalyser(limite = 12): {
       if (!lien || !titre) continue;
 
       const cle = normaliserLien(lien);
-      if (dejaTraites.has(cle)) continue;
-
       const { iso, affichee, ts } = formaterDate(baliseDe(item, "pubDate"));
 
       // Un même article peut revenir dans plusieurs flux : on garde le plus récent.
@@ -155,16 +156,19 @@ export function articlesAAnalyser(limite = 12): {
         dateAffichee: affichee,
         source: domaineDe(lien),
         sujet,
+        traite: dejaTraites.has(cle),
         ts,
       });
     }
   }
 
   const tries = [...parLien.values()].sort((a, b) => b.ts - a.ts);
+  const articles = tries.map(({ ts, ...a }) => a);
 
   return {
-    articles: tries.slice(0, limite).map(({ ts, ...a }) => a),
-    total: tries.length,
+    articles,
+    total: articles.length,
+    aAnalyser: articles.filter((a) => !a.traite).length,
     fluxLus: fichiers.length,
   };
 }

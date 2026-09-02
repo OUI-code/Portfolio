@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { chiffres, competences, profil, projetsPro } from "@/lib/data";
+import { chiffres, competences, formation, profil, projetsPro } from "@/lib/data";
 import ProjetCard from "@/components/ProjetCard";
 import HeroCanvas from "@/components/HeroCanvas";
 
@@ -56,10 +56,20 @@ export default function Accueil() {
 
           <div className="prose-fr space-y-4">
             <p>
-              Je suis étudiant en BTS SIO au lycée Pierre Poivre, à La Réunion. J&apos;y ai choisi
-              la spécialité SLAM — Solutions Logicielles et Applications Métiers. C&apos;est
-              l&apos;option du développement : conception d&apos;applications, modélisation de
-              bases de données et déploiement des solutions.
+              Je suis étudiant en{" "}
+              <a
+                href={formation.lienOnisep}
+                target="_blank"
+                rel="noreferrer"
+                title="Fiche Onisep du BTS SIO option SLAM"
+                className="font-medium text-accent-400 underline decoration-accent-500/40 underline-offset-4 transition hover:decoration-accent-400"
+              >
+                BTS SIO
+              </a>{" "}
+              au {formation.etablissement}, à La Réunion. J&apos;y ai choisi la spécialité
+              SLAM — Solutions Logicielles et Applications Métiers. C&apos;est l&apos;option
+              du développement : conception d&apos;applications, modélisation de bases de
+              données et déploiement des solutions.
             </p>
             <p>
               Ce portfolio rassemble les projets que j&apos;ai menés, aussi bien dans le cadre de ma

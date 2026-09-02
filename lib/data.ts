@@ -19,6 +19,16 @@ export const profil = {
   localisation: "La Réunion (974)",
 };
 
+export const formation = {
+  intitule: "BTS SIO — option SLAM",
+  intituleLong:
+    "Brevet de technicien supérieur Services informatiques aux organisations, option B : Solutions Logicielles et Applications Métiers",
+  etablissement: "Lycée Pierre Poivre",
+  // Fiche officielle du diplôme, pour les lecteurs qui ne connaissent pas le BTS SIO.
+  lienOnisep:
+    "https://www.onisep.fr/ressources/univers-formation/formations/post-bac/bts-services-informatiques-aux-organisations-option-b-solutions-logicielles-et-applications-metiers",
+};
+
 export const chiffres = [
   { valeur: "4", label: "projets menés en entreprise" },
   { valeur: "6", label: "semaines de stage" },

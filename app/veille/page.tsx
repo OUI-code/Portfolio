@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { veille } from "@/lib/data";
-import VeilleEmbed from "@/components/VeilleEmbed";
-import { articlesAAnalyser } from "@/lib/rss";
+import { lireCollecte } from "@/lib/rss";
 
 const outil = veille.outil;
 
@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 export default function Veille() {
   const fiches = veille.fiches.filter((f) => f.titre.trim() !== "");
-  // Articles remontés par l'outil et pour lesquels je n'ai pas encore écrit de fiche.
-  const { articles, total } = articlesAAnalyser(12);
+  // Compteurs de la collecte ; le détail est sur /veille/collecte/.
+  const { total, aAnalyser } = lireCollecte();
 
   return (
     <>
@@ -61,7 +61,7 @@ export default function Veille() {
           </div>
         </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_1.1fr]">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1.15fr_1fr]">
           <div>
             <h3 className="text-xl">{outil.nom}</h3>
 
@@ -105,7 +105,42 @@ export default function Veille() {
             </p>
           </div>
 
-          <VeilleEmbed />
+          {/* Accès aux données plutôt qu'intégration de l'application :
+              la collecte est rendue nativement sur sa propre page. */}
+          <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-ink-900/60 p-7">
+            <h3 className="text-lg">Consulter la collecte</h3>
+
+            <p className="text-sm leading-relaxed text-slate-400">
+              Les articles remontés par l&apos;outil sont publiés sur ce site, avec la mention
+              de ceux qui attendent encore une fiche.
+            </p>
+
+            <dl className="grid grid-cols-2 gap-3">
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                <dt className="text-2xl font-bold text-white">{total}</dt>
+                <dd className="mt-1 text-xs text-slate-500">articles collectés</dd>
+              </div>
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                <dt className="text-2xl font-bold text-white">{aAnalyser}</dt>
+                <dd className="mt-1 text-xs text-slate-500">restent à analyser</dd>
+              </div>
+            </dl>
+
+            <Link href="/veille/collecte/" className="btn-primary mt-1">
+              Voir les données collectées
+            </Link>
+
+            <div className="mt-1 flex flex-wrap gap-3">
+              <a href={outil.url} target="_blank" rel="noreferrer" className="btn-ghost flex-1">
+                Ouvrir l&apos;application
+              </a>
+              <a href={outil.depot} target="_blank" rel="noreferrer" className="btn-ghost flex-1">
+                Code source
+              </a>
+            </div>
+
+            <p className="text-xs leading-relaxed text-slate-600">{outil.delaiReveil}</p>
+          </div>
         </div>
       </section>
 
@@ -190,63 +225,6 @@ export default function Veille() {
         )}
       </section>
 
-      {/* File d'attente : articles collectés, pas encore analysés ------------- */}
-      {articles.length > 0 && (
-        <section className="wrap py-12">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="eyebrow">File d&apos;attente</p>
-              <h2 className="mt-3 text-2xl">À analyser</h2>
-            </div>
-            <p className="text-sm text-slate-500">
-              {articles.length} affichés sur {total}
-            </p>
-          </div>
-
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-500">
-            Ces articles ont été remontés par {outil.nom} et je n&apos;ai pas encore rédigé de
-            fiche à leur sujet. Chacun disparaît de cette liste dès que sa fiche est publiée
-            plus haut. La date indiquée est celle de la collecte, pas celle de publication de
-            l&apos;article.
-          </p>
-
-          <ul className="mt-8 divide-y divide-white/5 border-y border-white/5">
-            {articles.map((a) => (
-              <li key={a.lien}>
-                <a
-                  href={a.lien}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex flex-col gap-2 py-5 transition sm:flex-row sm:items-baseline sm:gap-6"
-                >
-                  <span
-                    title={`Collecté le ${a.dateAffichee}`}
-                    className="shrink-0 text-xs tabular-nums text-slate-600 sm:w-32"
-                  >
-                    {a.dateAffichee}
-                  </span>
-
-                  <span className="flex-1">
-                    <span className="block font-medium leading-snug text-slate-200 group-hover:text-accent-400">
-                      {a.titre}
-                    </span>
-                    {a.description && (
-                      <span className="mt-1 line-clamp-2 block text-sm leading-relaxed text-slate-500">
-                        {a.description}
-                      </span>
-                    )}
-                  </span>
-
-                  <span className="flex shrink-0 items-center gap-2 text-xs text-slate-600">
-                    {a.source}
-                    {a.sujet && <span className="tag">{a.sujet}</span>}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
     </>
   );
 }
