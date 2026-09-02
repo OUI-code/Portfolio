@@ -56,7 +56,7 @@ export default function Accueil() {
 
           <div className="prose-fr space-y-4">
             <p>
-              Je suis étudiant en BTS SIO, option SLAM — Solutions Logicielles et Applications
+              Je suis étudiant en BTS SIO dans le lycee Pierre poivre a l'ile de la reunion, je pris la specialite SLAM — Solutions Logicielles et Applications
               Métiers. Cette option est celle du développement : conception d&apos;applications,
               modélisation de bases de données, et déploiement des solutions.
             </p>
