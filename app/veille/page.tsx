@@ -32,6 +32,46 @@ export default function Veille() {
         </div>
       </section>
 
+      {/* Distinction de vocabulaire ----------------------------------------- */}
+      <section className="wrap py-8">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr]">
+          <div>
+            <h2 className="text-2xl">{veille.distinction.titre}</h2>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2">
+            {veille.distinction.items.map((d) => (
+              <div key={d.terme} className="rounded-2xl border border-white/10 bg-ink-900/50 p-6">
+                <h3 className="text-base text-accent-400">{d.terme}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-400">{d.texte}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Repères techniques -------------------------------------------------- */}
+      <section className="wrap py-8">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr]">
+          <div>
+            <h2 className="text-2xl">Les repères du sujet</h2>
+            <p className="mt-3 text-sm text-slate-500">
+              Les notions de fond que je dois maîtriser ; les fiches plus bas portent sur
+              l&apos;actualité.
+            </p>
+          </div>
+
+          <dl className="space-y-5">
+            {veille.reperes.map((r) => (
+              <div key={r.titre} className="border-l-2 border-accent-500/40 pl-5">
+                <dt className="font-semibold text-slate-200">{r.titre}</dt>
+                <dd className="mt-1.5 text-sm leading-relaxed text-slate-400">{r.texte}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
       {/* Méthode ------------------------------------------------------------ */}
       <section className="wrap py-8">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr]">

@@ -239,14 +239,57 @@ export const documents = [
 // -----------------------------------------------------------------------------
 
 export const veille = {
-  sujet: "La protection des données personnelles dans les applications web",
+  sujet: "La cryptographie quantique",
   pourquoi:
-    "J'ai choisi ce sujet parce qu'il rejoint directement les projets que j'ai menés en entreprise : le Logiciel Métier OCI EXPRESS manipule des actes d'état civil et des documents d'identité, et le Coffre-fort numérique repose entièrement sur du chiffrement côté client. Comprendre comment protéger les données d'un utilisateur, et ce que la réglementation impose, est devenu une compétence que je mobilise sur chacun de mes projets.",
+    "Les algorithmes qui protègent aujourd'hui les échanges sur le web — RSA et les courbes elliptiques — reposent sur des problèmes mathématiques qu'un ordinateur quantique suffisamment puissant saurait résoudre. Le sujet rejoint directement mes projets : j'ai développé un coffre-fort numérique dont toute la sécurité repose sur du chiffrement, et je voulais comprendre lesquels de ces choix techniques tiendront dans dix ans, et lesquels ne tiendront pas.",
+
+  // Distinction de vocabulaire souvent confondue, et régulièrement demandée à l'oral.
+  distinction: {
+    titre: "Deux sujets que l'on confond souvent",
+    items: [
+      {
+        terme: "Cryptographie quantique",
+        texte:
+          "Elle utilise les propriétés de la physique quantique pour sécuriser un échange. Son application principale est la distribution quantique de clés (QKD) : toute tentative d'interception modifie l'état des particules transmises, et devient donc détectable. Elle demande du matériel spécifique et reste peu déployée.",
+      },
+      {
+        terme: "Cryptographie post-quantique",
+        texte:
+          "Ce sont des algorithmes classiques, exécutés sur des ordinateurs ordinaires, mais conçus pour résister à une attaque menée avec un ordinateur quantique. C'est la voie retenue pour la transition, et celle que recommandent le NIST comme l'ANSSI.",
+      },
+    ],
+  },
+
+  // Repères techniques du sujet. Ce sont les bases que je dois maîtriser ;
+  // les fiches de veille plus bas, elles, portent sur l'actualité.
+  reperes: [
+    {
+      titre: "L'algorithme de Shor",
+      texte:
+        "Il casse RSA et les courbes elliptiques en résolvant efficacement la factorisation et le logarithme discret. C'est lui qui rend la transition nécessaire.",
+    },
+    {
+      titre: "L'algorithme de Grover",
+      texte:
+        "Il divise par deux la sécurité effective des algorithmes symétriques. AES-256 conserve donc l'équivalent de 128 bits, ce qui reste considéré comme sûr : le chiffrement symétrique est bien moins menacé que l'asymétrique.",
+    },
+    {
+      titre: "La standardisation du NIST",
+      texte:
+        "En août 2024, le NIST a publié ses premiers standards post-quantiques : ML-KEM pour l'échange de clés, ML-DSA et SLH-DSA pour la signature.",
+    },
+    {
+      titre: "« Harvest now, decrypt later »",
+      texte:
+        "Des données chiffrées interceptées aujourd'hui peuvent être conservées pour être déchiffrées plus tard. C'est pourquoi la transition concerne dès maintenant les données à longue durée de vie, comme les actes d'état civil.",
+    },
+  ],
+
   methode: [
-    "Collecte automatisée avec l'application Veille IA présentée plus bas : elle agrège les articles publiés sur mes thèmes de veille depuis le web et des flux RSS spécialisés.",
+    "Collecte automatisée avec l'application Veille IA présentée plus bas : elle agrège les articles publiés sur mon thème de veille depuis le web et des flux RSS spécialisés.",
     "Tri manuel des résultats : je ne conserve que les articles qui concernent réellement mon sujet et dont la source me paraît fiable.",
     "Rédaction d'une fiche personnelle pour chaque article retenu, avec mes propres mots : le résumé, puis ce que j'en retire concrètement pour mes projets.",
-    "Consultation directe des sources de référence ci-dessous pour tout ce qui touche à la réglementation et aux alertes de sécurité, que je préfère lire à la source.",
+    "Lecture directe des publications du NIST et de l'ANSSI pour tout ce qui touche aux standards et aux recommandations officielles, que je préfère consulter à la source.",
   ],
 
   // Outil utilisé pour automatiser la collecte. Ce n'est pas mon projet :
@@ -276,32 +319,32 @@ export const veille = {
     {
       nom: "ANSSI",
       url: "https://cyber.gouv.fr/actualites",
-      desc: "Agence nationale de la sécurité des systèmes d'information : alertes et guides de bonnes pratiques.",
+      desc: "Agence nationale de la sécurité des systèmes d'information : sa position sur la transition post-quantique fait référence en France.",
     },
     {
-      nom: "CNIL",
-      url: "https://www.cnil.fr/fr/actualites",
-      desc: "Cadre réglementaire français et européen sur les données personnelles (RGPD).",
+      nom: "NIST — Post-Quantum Cryptography",
+      url: "https://csrc.nist.gov/projects/post-quantum-cryptography",
+      desc: "Le programme de standardisation des algorithmes post-quantiques. La source de référence sur le sujet.",
     },
     {
-      nom: "OWASP",
-      url: "https://owasp.org/",
-      desc: "Référentiel des vulnérabilités web les plus courantes, dont le Top 10.",
+      nom: "Inria",
+      url: "https://www.inria.fr/fr",
+      desc: "Recherche française en informatique, dont les travaux sur la cryptographie et le calcul quantique.",
+    },
+    {
+      nom: "Cloudflare Research",
+      url: "https://blog.cloudflare.com/tag/post-quantum/",
+      desc: "Le déploiement réel du post-quantique sur le web, avec les mesures et les difficultés rencontrées.",
     },
     {
       nom: "LeMagIT",
       url: "https://www.lemagit.fr/",
-      desc: "Actualité technique et sécurité des systèmes d'information.",
+      desc: "Actualité technique et sécurité des systèmes d'information, en français.",
     },
     {
       nom: "Le Monde Informatique",
       url: "https://www.lemondeinformatique.fr/",
       desc: "Actualité générale de l'informatique professionnelle.",
-    },
-    {
-      nom: "Blog Next.js",
-      url: "https://nextjs.org/blog",
-      desc: "Évolutions du framework que j'utilise sur la majorité de mes projets.",
     },
   ],
   // ---------------------------------------------------------------------------
