@@ -3,8 +3,8 @@
 Portfolio professionnel réalisé dans le cadre du **BTS SIO, option SLAM**.
 
 Site statique développé avec **Next.js 16**, **React 19**, **TypeScript** et **Tailwind CSS**,
-exporté en HTML/CSS/JS pur (`output: 'export'`) : il se déploie aussi bien sur Vercel que
-sur GitHub Pages, Netlify ou n'importe quel hébergeur de fichiers.
+exporté en HTML/CSS/JS pur (`output: 'export'`) : il se déploie sur Vercel, Netlify ou
+n'importe quel hébergeur de fichiers statiques.
 
 ## Contenu du site
 
@@ -101,23 +101,29 @@ portfolio/
 
 ## Déploiement
 
-### Option A — Vercel (recommandé)
+Le site est déployé sur **Vercel**, connecté à ce dépôt.
 
-1. Pousser le dépôt sur GitHub
-2. Sur [vercel.com](https://vercel.com), importer le dépôt
-3. Vercel détecte Next.js automatiquement : aucune configuration nécessaire
+1. Sur [vercel.com](https://vercel.com), importer le dépôt (une seule fois)
+2. Vercel détecte Next.js automatiquement : aucune configuration nécessaire
 
-Chaque `git push` redéploie le site automatiquement.
+Ensuite, **chaque `git push` sur `main` redéploie le site automatiquement**. Il n'y a
+pas besoin de la CLI Vercel.
 
-### Option B — GitHub Pages
+Rappel : `git push` envoie des *commits*, pas des fichiers. Une modification enregistrée
+mais non commitée ne part pas. Vérifier avec `git status` avant de pousser.
 
-Le workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) est déjà
-configuré. Dans les réglages du dépôt GitHub, aller dans **Settings → Pages** et choisir
-**GitHub Actions** comme source.
+```bash
+git add -A
+git commit -m "Description de la modification"
+git push
+```
 
-Si le site est publié dans un sous-dossier (`https://pseudo.github.io/portfolio/`),
-définir la variable d'environnement `NEXT_PUBLIC_BASE_PATH=/portfolio` — c'est déjà
-prévu dans le workflow.
+### Déployer ailleurs
+
+Le site étant exporté en statique, le contenu du dossier `out/` peut être servi par
+n'importe quel hébergeur. Si le site est publié dans un sous-dossier
+(`https://exemple.com/portfolio/`), définir `NEXT_PUBLIC_BASE_PATH=/portfolio` avant
+le build — [`next.config.mjs`](next.config.mjs) le prend en compte.
 
 ## Accessibilité et performance
 
