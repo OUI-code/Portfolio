@@ -56,9 +56,10 @@ export default function Accueil() {
 
           <div className="prose-fr space-y-4">
             <p>
-              Je suis étudiant en BTS SIO dans le lycee Pierre poivre a l'ile de la reunion, je pris la specialite SLAM — Solutions Logicielles et Applications
-              Métiers. Cette option est celle du développement : conception d&apos;applications,
-              modélisation de bases de données, et déploiement des solutions.
+              Je suis étudiant en BTS SIO au lycée Pierre Poivre, à La Réunion. J&apos;y ai choisi
+              la spécialité SLAM — Solutions Logicielles et Applications Métiers. C&apos;est
+              l&apos;option du développement : conception d&apos;applications, modélisation de
+              bases de données et déploiement des solutions.
             </p>
             <p>
               Ce portfolio rassemble les projets que j&apos;ai menés, aussi bien dans le cadre de ma
